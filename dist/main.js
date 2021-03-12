@@ -1,0 +1,1 @@
+(()=>{let t=new class{constructor(t,o,e,i){this.title=t,this.description=o,this.dueDate=e,this.priority=i}}("job","solve","13-03-21","medium");console.log(t.title),console.log(t)})();
