@@ -10,12 +10,12 @@ export default () => {
     let arr = ['Title', 'Description', 'Due date']
     arr.forEach((ele)=>{
         const group = domNodeCreator('div', {class: 'form-group col-md-7'})
-        const input = domNodeCreator('input', {type: 'text', class: 'form-control', placeholder: ele})
+        const input = domNodeCreator('input', {type: 'text', class: 'form-control', id: ele, placeholder: ele})
         chainAppend([form, group, input])
     })
 
     const selectGroup = domNodeCreator('div', {class: 'form-group col-md-4'})
-    const select = domNodeCreator('select', {class: 'form-control'}) 
+    const select = domNodeCreator('select', {id: "priority", class: 'form-control'}) 
     arr = ['Priority', 'Low', 'Medium', 'High']
     arr.forEach((ele)=>{
         const option = domNodeCreator('option', {}, ele)
