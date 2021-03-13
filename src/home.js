@@ -23,7 +23,7 @@ export default () => {
     })
     chainAppend([form, selectGroup, select])
 
-    const button = domNodeCreator('button', {type: 'submit', class: 'btn btn-primary'}, 'Add')
+    const button = domNodeCreator('button', {type: 'submit', class: 'btn btn-primary', id: 'add-todo'}, 'Add')
     form.appendChild(button)
 
     const ul = domNodeCreator('ul', {class: 'list-group list-group-flush'})
