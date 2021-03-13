@@ -1,5 +1,5 @@
 import {domNodeCreator, chainAppend } from './domNodeCreator'
-import {todoModule} from './factory'
+import {projectModule, todoModule} from './factory'
 
 const renderForm = function (){
     const content = document.getElementById('content')
@@ -22,6 +22,17 @@ const renderForm = function (){
     })
     chainAppend([form, selectGroup, select])
 
+    const selectGroupProject = domNodeCreator('div', {class: 'form-group col-md-4'})
+    const selectProject = domNodeCreator('select', {id: "project", class: 'form-control'}) 
+    const projects = projectModule.getAllProject()
+    console.log('*********here******')
+    console.log(projects)
+    for(let key in projects) {
+        const option = domNodeCreator('option', {}, projects[key])
+        selectProject.appendChild(option)
+    }
+    chainAppend([form, selectGroupProject,selectProject])
+
     const button = domNodeCreator('button', {type: 'submit', class: 'btn btn-primary', id: 'add-todo'}, 'Add')
     form.appendChild(button)
     chainAppend([content, h1])
@@ -35,22 +46,29 @@ const renderTodoList = function (){
     if(document.querySelector('.todo-list')){
         content.removeChild(document.querySelector('.todo-list'))
     }
-    const ul = domNodeCreator('ul', {class: 'list-group list-group-flush'})
-    todoModule.getTodos().forEach((ele, index)=>{
-        const li = domNodeCreator('li', {class: 'list-group-item'})
-        const title = domNodeCreator('span', {}, ele.title)
-        const remove = domNodeCreator('span')
-        const removeIcon = domNodeCreator('i', {class: 'fa fa-times', 'data-index': index})
-        removeIcon.addEventListener('click', (event)=>{
-            todoModule.deleteTodo(event.target.dataset.index)
-            renderTodoList()
+    const allProjects = projectModule.getAllProject() 
+    for(let key in allProjects){
+        const projectId = allProjects[key]
+        const todos = todoModule.getProjectTodos(projectId)
+        
+        const h3 = domNodeCreator('h3', {}, allProjects[key])
+        const ul = domNodeCreator('ul', {class: 'list-group list-group-flush'})
+        todos.forEach((ele, index)=>{
+            const li = domNodeCreator('li', {class: 'list-group-item'})
+            const title = domNodeCreator('span', {}, ele.title)
+            const remove = domNodeCreator('span')
+            const removeIcon = domNodeCreator('i', {class: 'fa fa-times', 'data-index': index})
+            removeIcon.addEventListener('click', (event)=>{
+                todoModule.deleteTodo(event.target.dataset.index)
+                renderTodoList()
+            })
+            chainAppend([li, title])
+            chainAppend([li, remove, removeIcon])
+            chainAppend([ul, li])
         })
-        chainAppend([li, title])
-        chainAppend([li, remove, removeIcon])
-        chainAppend([ul, li])
-    })
-
-    chainAppend([content, todoList, ul])
+        chainAppend([content, todoList, h3])
+        chainAppend([content, todoList, ul])
+    }
 }
 
 export {renderForm, renderTodoList}
