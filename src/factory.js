@@ -1,17 +1,18 @@
 const todoModule = (() => {
-    const todo = []
-    function todo(title, description, dueDate, priority, projectId = 0) {
-        const obj = Object.create(todo.proto)
+    const todoList = []
+    function todoFactory(title, description, dueDate, priority, projectId = 0) {
+        const obj = {}
         obj.title = title
         obj.description = description
         obj.dueDate = dueDate
         obj.priority = priority
         obj.projectId = projectId
-        todo.push(obj)
+        todoList.push(obj)
     }
     return {
-        createTodo: todo,
-        getTodos: ()=> [...todo]
+        createTodo: todoFactory,
+        getTodos: ()=> [...todoList],
+        deleteTodo: (index)=> todoList.splice(index, 1)
     }
 })()
 

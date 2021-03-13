@@ -1,7 +1,8 @@
-import renderHome from './home'
+import {renderForm, renderTodoList} from './home'
 import createTodo from './createTodo'
 
-renderHome()
+renderForm()
+renderTodoList()
 
 const title = document.getElementById('Title')
 const description = document.getElementById('Description') 
@@ -10,6 +11,8 @@ const priority = document.getElementById('priority')
 
 const addTodo = document.getElementById('add-todo')
 
-addTodo.addEventListener('click', ()=>{
+addTodo.addEventListener('click', (event)=>{
+  event.preventDefault()
   createTodo(title.value, description.value, dueDate.value, priority.value)
+  renderTodoList()
 })
