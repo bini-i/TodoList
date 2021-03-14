@@ -56,7 +56,7 @@ const renderForm = function () {
 
 }
 
-const renderModal = function () {
+const renderModal = function (id) {
     const body = document.querySelector('body')
     const container = domNodeCreator('div', { class: 'container' })
 
@@ -73,7 +73,7 @@ const renderModal = function () {
     let todoAttr = ['Title', 'Description', 'Due date']
     todoAttr.forEach((ele) => {
         const group = domNodeCreator('div', { class: 'form-group col-md-7' })
-        const input = domNodeCreator('input', { type: 'text', class: 'form-control', id: ele, placeholder: ele })
+        const input = domNodeCreator('input', { type: 'text', class: 'form-control', id: ele, placeholder: ele, value: todoModule.getTodo(id) })
         chainAppend([form, group, input])
     })
     const labelPriority = domNodeCreator('label', { for: 'priority', class: 'col-sm-2 col-form-label' }, 'Priority')
@@ -151,9 +151,9 @@ const renderTodoList = function () {
             chainAppend([li, group, edit, editIcon])
             chainAppend([li, group, remove, removeIcon])
             chainAppend([ul, li])
-            editIcon.addEventListener('click', () => {
-                renderModal()
-                // console.log('111');
+            editIcon.addEventListener('click', (e) => {
+                renderModal(e.target.dataset.index)
+
             })
         })
         chainAppend([content, todoList, h3])

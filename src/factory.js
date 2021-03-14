@@ -14,7 +14,9 @@ const todoModule = (() => {
         getProjectTodos: (projectId) => {return todoList.filter((ele)=> ele.projectId == projectId)},
         getAllTodos: ()=> [...todoList],
         deleteTodo: (index)=> todoList.splice(index, 1),
+        getTodo: (id) => todoList[id]
     }
+    
 })()
 
 const projectModule = (() => {
