@@ -18,7 +18,7 @@ addTodo.addEventListener('click', (event)=>{
   const project = document.getElementById('project')
   event.preventDefault()
   createTodo(title.value, description.value, dueDate.value, priority.value, parseInt(project.value))
-  console.log(parseInt(project.value))
+  // console.log(parseInt(project.value))
   renderTodoList()
 })
 
@@ -32,3 +32,6 @@ createProject.addEventListener('click', (event)=>{
   renderProjectOptions(projectGroup)
   alert("New project created")
 })
+
+// const changeToDo = document.querySelector('.modal-body')
+// changeToDo.appendChild(renderForm

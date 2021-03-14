@@ -56,6 +56,27 @@ const renderForm = function (){
 
 }
 
+const renderModal = function() {
+    const body = document.querySelector('body')
+    const container = domNodeCreator('div', {class: 'container'})
+    
+    // domNodeCreator('h2', {}, 'Edit Todo')
+    // domNodeCreator('button', {type: 'button', class: 'btn btn-primary', data-toggle: 'modal', data-target: '#myModal'}, )
+    const modal = domNodeCreator('div', { class: 'modal', id: 'myModal'})
+    const modalDialog = domNodeCreator('div', { class: 'modal-dialog' })
+    const modalContent = domNodeCreator('div', { class: 'modal-content' })
+    const modalHeader = domNodeCreator('div', { class: 'modal-header' })
+    const modalTitle = domNodeCreator('h4', { class: 'modal-title' }, 'Edit Todo')
+    const modalBody = domNodeCreator('div', {class: 'modal-body'})
+    const modalFooter = domNodeCreator('div', {class: 'modal-footer'})
+    const closeButton = domNodeCreator('button', {type: 'button', class: 'btn btn-danger', 'data-dismiss': 'modal'}, 'Close')
+    chainAppend([modalContent, modalHeader, modalTitle])
+    chainAppend([modalContent, modalBody])
+    chainAppend([modalContent, modalFooter, closeButton])
+    chainAppend([body, container, modal, modalDialog, modalContent])
+    console.log(111);
+}
+
 const renderTodoList = function (){
     const content = document.getElementById('content')
     const todoList = domNodeCreator('div', {class: 'todo-list'})
@@ -79,8 +100,9 @@ const renderTodoList = function (){
             const priority = domNodeCreator('span', {}, ele.priority)
             const group = domNodeCreator('div')
             const edit = domNodeCreator('span', {class: 'mx-2'})
-            const editIcon = domNodeCreator('i', {class: 'fa fa-pencil-square-o', 'data-index': index})
+            const editIcon = domNodeCreator('i', {class: 'fa fa-pencil-square-o', 'data-index': index, 'data-toggle': 'modal', 'data-target': '#myModal'})
 
+            
             const remove = domNodeCreator('span')
             const removeIcon = domNodeCreator('i', {class: 'fa fa-times', 'data-index': index})
             removeIcon.addEventListener('click', (event)=>{
@@ -93,6 +115,10 @@ const renderTodoList = function (){
             chainAppend([li, group, edit, editIcon])
             chainAppend([li, group, remove, removeIcon])
             chainAppend([ul, li])
+            editIcon.addEventListener('click', () => {
+                renderModal()
+                // console.log('111');
+            })
         })
         chainAppend([content, todoList, h3])
         chainAppend([content, todoList, ul])
