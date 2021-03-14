@@ -56,12 +56,10 @@ const renderForm = function () {
 
 }
 
-const renderModal = function (id) {
+const renderModal = function (index) {
     const body = document.querySelector('body')
     const container = domNodeCreator('div', { class: 'container' })
 
-    // domNodeCreator('h2', {}, 'Edit Todo')
-    // domNodeCreator('button', {type: 'button', class: 'btn btn-primary', data-toggle: 'modal', data-target: '#myModal'}, )
     const modal = domNodeCreator('div', { class: 'modal', id: 'myModal' })
     const modalDialog = domNodeCreator('div', { class: 'modal-dialog' })
     const modalContent = domNodeCreator('div', { class: 'modal-content' })
@@ -70,10 +68,10 @@ const renderModal = function (id) {
     const modalBody = domNodeCreator('div', { class: 'modal-body' })
 
     const form = domNodeCreator('form', { class: 'mb-3' })
-    let todoAttr = ['Title', 'Description', 'Due date']
+    let todoAttr = ['title', 'description', 'dueDate']
     todoAttr.forEach((ele) => {
         const group = domNodeCreator('div', { class: 'form-group col-md-7' })
-        const input = domNodeCreator('input', { type: 'text', class: 'form-control', id: ele, placeholder: ele, value: todoModule.getTodo(id) })
+        const input = domNodeCreator('input', { type: 'text', class: 'form-control', id: ele, placeholder: ele, value: todoModule.getTodo(index)[ele] })
         chainAppend([form, group, input])
     })
     const labelPriority = domNodeCreator('label', { for: 'priority', class: 'col-sm-2 col-form-label' }, 'Priority')
@@ -97,11 +95,7 @@ const renderModal = function (id) {
     }
     selectGroupProject.appendChild(selectProject)
     chainAppend([form, selectGroupProject])
-    const updateButton = domNodeCreator('button', { type: 'submit', class: 'btn btn-success', id: 'update-todo' }, 'Update')
-    // form.appendChild(updateButton)
-
-
-
+    const updateButton = domNodeCreator('button', { type: 'submit', class: 'btn btn-success', id: 'update-todo', 'data-dismiss': 'modal'}, 'Update')
 
     const modalFooter = domNodeCreator('div', { class: 'modal-footer d-flex justify-content-between' })
     const closeButton = domNodeCreator('button', { type: 'button', class: 'btn btn-danger', 'data-dismiss': 'modal' }, 'Close')
@@ -129,18 +123,18 @@ const renderTodoList = function () {
         }
         const h3 = domNodeCreator('h3', {}, allProjects[key])
         const ul = domNodeCreator('ul', { class: 'list-group list-group-flush' })
-        todos.forEach((ele, index) => {
+        todos.forEach((ele) => {
             const li = domNodeCreator('li', { class: 'list-group-item' })
             const title = domNodeCreator('span', {}, ele.title)
             const description = domNodeCreator('p', {}, ele.description)
             const priority = domNodeCreator('span', {}, ele.priority)
             const group = domNodeCreator('div')
             const edit = domNodeCreator('span', { class: 'mx-2' })
-            const editIcon = domNodeCreator('i', { class: 'fa fa-pencil-square-o', 'data-index': index, 'data-toggle': 'modal', 'data-target': '#myModal' })
+            const editIcon = domNodeCreator('i', { class: 'fa fa-pencil-square-o', 'data-index': ele.id, 'data-toggle': 'modal', 'data-target': '#myModal', id: 'edit-icon' })
 
 
             const remove = domNodeCreator('span')
-            const removeIcon = domNodeCreator('i', { class: 'fa fa-times', 'data-index': index })
+            const removeIcon = domNodeCreator('i', { class: 'fa fa-times', 'data-index': ele.id })
             removeIcon.addEventListener('click', (event) => {
                 todoModule.deleteTodo(event.target.dataset.index)
                 renderTodoList()
@@ -153,7 +147,18 @@ const renderTodoList = function () {
             chainAppend([ul, li])
             editIcon.addEventListener('click', (e) => {
                 renderModal(e.target.dataset.index)
-
+                const modalTitle = document.querySelector('.modal #title')
+                const modalDescription = document.querySelector('.modal #description')
+                const modalDueDate = document.querySelector('.modal #dueDate')
+                const modalPriority = document.querySelector('.modal #priority')
+                
+                const updateTodo = document.getElementById('update-todo')
+                updateTodo.addEventListener('click', (event)=> {
+                    const modalProject = document.querySelector('.modal #project')
+                    event.preventDefault()
+                    todoModule.updateTodo(e.target.dataset.index, modalTitle.value, modalDescription.value, modalDueDate.value, modalPriority.value, parseInt(modalProject.value))
+                    renderTodoList()
+                })
             })
         })
         chainAppend([content, todoList, h3])

@@ -2,6 +2,7 @@ const todoModule = (() => {
     const todoList = []
     function todoFactory(title, description, dueDate, priority, projectId = 0) {
         const obj = {}
+        obj.id = todoList.length
         obj.title = title
         obj.description = description
         obj.dueDate = dueDate
@@ -13,8 +14,15 @@ const todoModule = (() => {
         createTodo: todoFactory,
         getProjectTodos: (projectId) => {return todoList.filter((ele)=> ele.projectId == projectId)},
         getAllTodos: ()=> [...todoList],
-        deleteTodo: (index)=> todoList.splice(index, 1),
-        getTodo: (id) => todoList[id]
+        getTodo: (index) => todoList[index],
+        updateTodo: (index, title, description, dueDate, priority, projectId = 0) => {
+            todoList[index].title = title
+            todoList[index].description = description
+            todoList[index].dueDate = dueDate
+            todoList[index].priority = priority
+            todoList[index].projectId = projectId
+        },
+        deleteTodo: (index)=> todoList.splice(index, 1)
     }
     
 })()
