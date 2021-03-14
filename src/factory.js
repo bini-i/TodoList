@@ -12,7 +12,7 @@ const todoModule = (() => {
   }
   return {
     createTodo: todoFactory,
-    getProjectTodos: (projectId) => todoList.filter((ele) => ele.projectId == projectId),
+    getProjectTodos: (pId) => todoList.filter((ele) => ele.projectId === parseInt(pId, 10)),
     getAllTodos: () => [...todoList],
     getTodo: (index) => todoList[index],
     updateTodo: (index, title, description, dueDate, priority, projectId = 0) => {

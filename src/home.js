@@ -1,7 +1,7 @@
 import { domNodeCreator, chainAppend } from './domNodeCreator';
 import { projectModule, todoModule } from './factory';
 
-const renderProjectOptions = function (selectGroupProject) {
+const renderProjectOptions = (selectGroupProject) => {
   let selectProject = document.getElementById('project');
   if (selectProject) {
     selectGroupProject.removeChild(selectProject);
@@ -9,14 +9,15 @@ const renderProjectOptions = function (selectGroupProject) {
 
   selectProject = domNodeCreator('select', { id: 'project', class: 'form-control mr-3' });
   const projects = projectModule.getAllProject();
-  for (const key in projects) {
+  const keys = Object.keys(projects);
+  keys.forEach((key) => {
     const option = domNodeCreator('option', { value: key }, projects[key]);
     selectProject.appendChild(option);
-  }
+  });
   selectGroupProject.appendChild(selectProject);
 };
 
-const renderForm = function () {
+const renderForm = () => {
   const content = document.getElementById('content');
 
   const h1 = domNodeCreator('h1', {}, 'Todo List');
@@ -57,7 +58,7 @@ const renderForm = function () {
   chainAppend([content, form]);
 };
 
-const renderModal = function (index) {
+const renderModal = (index) => {
   const body = document.querySelector('body');
   const container = domNodeCreator('div', { class: 'container' });
 
@@ -92,10 +93,11 @@ const renderModal = function (index) {
   const selectGroupProject = domNodeCreator('div', { class: 'form-group col-md-4', id: 'project-group' });
   const selectProject = domNodeCreator('select', { id: 'project', class: 'form-control mr-3' });
   const projects = projectModule.getAllProject();
-  for (const key in projects) {
+  const keys = Object.keys(projects);
+  keys.forEach((key) => {
     const option = domNodeCreator('option', { value: key }, projects[key]);
     selectProject.appendChild(option);
-  }
+  });
   selectGroupProject.appendChild(selectProject);
   chainAppend([form, selectGroupProject]);
   const updateButton = domNodeCreator('button', {
@@ -112,20 +114,18 @@ const renderModal = function (index) {
   chainAppend([body, container, modal, modalDialog, modalContent]);
 };
 
-const renderTodoList = function () {
+const renderTodoList = () => {
   const content = document.getElementById('content');
   const todoList = domNodeCreator('div', { class: 'todo-list' });
   if (document.querySelector('.todo-list')) {
     content.removeChild(document.querySelector('.todo-list'));
   }
   const allProjects = projectModule.getAllProject();
-  for (const key in allProjects) {
+  const keys = Object.keys(allProjects);
+  keys.forEach((key) => {
     const projectId = key;
 
     const todos = todoModule.getProjectTodos(projectId);
-    if (!todos.length) {
-      continue;
-    }
     const h3 = domNodeCreator('h3', {}, allProjects[key]);
     const ul = domNodeCreator('ul', { class: 'list-group list-group-flush' });
     todos.forEach((ele) => {
@@ -138,7 +138,6 @@ const renderTodoList = function () {
       const editIcon = domNodeCreator('i', {
         class: 'fa fa-pencil-square-o', 'data-index': ele.id, 'data-toggle': 'modal', 'data-target': '#myModal', id: 'edit-icon',
       });
-
 
       const remove = domNodeCreator('span');
       const removeIcon = domNodeCreator('i', { class: 'fa fa-times', 'data-index': ele.id });
@@ -172,10 +171,10 @@ const renderTodoList = function () {
     });
     chainAppend([content, todoList, h3]);
     chainAppend([content, todoList, ul]);
-  }
+  });
 };
 
-const renderProjectForm = function () {
+const renderProjectForm = () => {
   const content = document.getElementById('content');
   const form = domNodeCreator('form', { class: 'mb-3' });
   const group = domNodeCreator('div', { class: 'form-group col-md-7' });

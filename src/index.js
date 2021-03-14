@@ -4,7 +4,6 @@ import {
 import createTodo from './createTodo';
 import { projectModule } from './factory';
 
-
 renderForm();
 renderProjectForm();
 renderTodoList();
@@ -32,5 +31,5 @@ createProject.addEventListener('click', (event) => {
   event.preventDefault();
   projectModule.createProject(projectName.value);
   renderProjectOptions(projectGroup);
-  alert('New project created');
+  alert('New project created'); // eslint-disable-line no-alert
 });
