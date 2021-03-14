@@ -74,7 +74,6 @@ const renderModal = function() {
     chainAppend([modalContent, modalBody])
     chainAppend([modalContent, modalFooter, closeButton])
     chainAppend([body, container, modal, modalDialog, modalContent])
-    console.log(111);
 }
 
 const renderTodoList = function (){
