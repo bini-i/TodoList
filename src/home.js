@@ -1,6 +1,21 @@
 import {domNodeCreator, chainAppend } from './domNodeCreator'
 import {projectModule, todoModule} from './factory'
 
+const renderProjectOptions = function(selectGroupProject) {
+    let selectProject = document.getElementById('project')
+    if(selectProject){
+        selectGroupProject.removeChild(selectProject)
+    }
+        
+    selectProject = domNodeCreator('select', {id: "project", class: 'form-control mr-3'}) 
+    const projects = projectModule.getAllProject()
+    for(let key in projects) {
+        const option = domNodeCreator('option', {value: key}, projects[key])
+        selectProject.appendChild(option)
+    }
+    selectGroupProject.appendChild(selectProject)
+}
+
 const renderForm = function (){
     const content = document.getElementById('content')
     
@@ -13,28 +28,29 @@ const renderForm = function (){
         chainAppend([form, group, input])
     })
 
-    const selectGroup = domNodeCreator('div', {class: 'form-group col-md-4'})
-    const select = domNodeCreator('select', {id: "priority", class: 'form-control'}) 
-    let priorityLevels = ['Priority', 'Low', 'Medium', 'High']
+    const labelPriority = domNodeCreator('label', {for: 'priority', class: 'col-sm-2 col-form-label'}, 'Priority')
+    form.appendChild(labelPriority)
+    
+    const selectGroupPriority = domNodeCreator('div', {class: 'form-group col-md-4'})
+    const selectPriority = domNodeCreator('select', {id: "priority", class: 'form-control'}) 
+    let priorityLevels = ['Not Urgent', 'Urgent']
     priorityLevels.forEach((ele)=>{
         const option = domNodeCreator('option', {}, ele)
-        select.appendChild(option)
+        selectPriority.appendChild(option)
     })
-    chainAppend([form, selectGroup, select])
+    chainAppend([form, selectGroupPriority, selectPriority])
 
-    const selectGroupProject = domNodeCreator('div', {class: 'form-group col-md-4'})
-    const selectProject = domNodeCreator('select', {id: "project", class: 'form-control'}) 
-    const projects = projectModule.getAllProject()
-    console.log('*********here******')
-    console.log(projects)
-    for(let key in projects) {
-        const option = domNodeCreator('option', {}, projects[key])
-        selectProject.appendChild(option)
-    }
-    chainAppend([form, selectGroupProject,selectProject])
+    const labelProject = domNodeCreator('label', {for: 'project', class: 'col-sm-2 col-form-label'}, 'Project')
+    form.appendChild(labelProject)
 
-    const button = domNodeCreator('button', {type: 'submit', class: 'btn btn-primary', id: 'add-todo'}, 'Add')
-    form.appendChild(button)
+    const selectGroupProject = domNodeCreator('div', {class: 'form-group col-md-4', id: 'project-group'})
+    
+    renderProjectOptions(selectGroupProject)
+    
+    chainAppend([form, selectGroupProject])
+
+    const AddTodobutton = domNodeCreator('button', {type: 'submit', class: 'btn btn-primary', id: 'add-todo'}, 'Add Todo')
+    form.appendChild(AddTodobutton)
     chainAppend([content, h1])
     chainAppend([content, form])
 
@@ -48,14 +64,23 @@ const renderTodoList = function (){
     }
     const allProjects = projectModule.getAllProject() 
     for(let key in allProjects){
-        const projectId = allProjects[key]
-        const todos = todoModule.getProjectTodos(projectId)
+        const projectId = key
         
+        const todos = todoModule.getProjectTodos(projectId)
+        if(!todos.length){
+            continue
+        }
         const h3 = domNodeCreator('h3', {}, allProjects[key])
         const ul = domNodeCreator('ul', {class: 'list-group list-group-flush'})
         todos.forEach((ele, index)=>{
             const li = domNodeCreator('li', {class: 'list-group-item'})
             const title = domNodeCreator('span', {}, ele.title)
+            const description = domNodeCreator('p', {}, ele.description)
+            const priority = domNodeCreator('span', {}, ele.priority)
+            const group = domNodeCreator('div')
+            const edit = domNodeCreator('span', {class: 'mx-2'})
+            const editIcon = domNodeCreator('i', {class: 'fa fa-pencil-square-o', 'data-index': index})
+
             const remove = domNodeCreator('span')
             const removeIcon = domNodeCreator('i', {class: 'fa fa-times', 'data-index': index})
             removeIcon.addEventListener('click', (event)=>{
@@ -63,7 +88,10 @@ const renderTodoList = function (){
                 renderTodoList()
             })
             chainAppend([li, title])
-            chainAppend([li, remove, removeIcon])
+            chainAppend([li, description])
+            chainAppend([li, group, priority])
+            chainAppend([li, group, edit, editIcon])
+            chainAppend([li, group, remove, removeIcon])
             chainAppend([ul, li])
         })
         chainAppend([content, todoList, h3])
@@ -71,4 +99,18 @@ const renderTodoList = function (){
     }
 }
 
-export {renderForm, renderTodoList}
+const renderProjectForm = function() {
+    
+    const content = document.getElementById('content')
+    const form = domNodeCreator('form', {class: 'mb-3'})
+    const group = domNodeCreator('div', {class: 'form-group col-md-7'})
+    const input = domNodeCreator('input', {type: 'text', class: 'form-control', id: 'project-name', placeholder: 'Project name'})
+    chainAppend([form, group, input])
+    
+    const createProjectButton = domNodeCreator('button', {type: 'submit', class: 'btn btn-primary', id: 'create-project'}, 'Create Project')
+    form.appendChild(createProjectButton)
+    
+    chainAppend([content, form])
+}
+
+export {renderProjectOptions, renderForm, renderTodoList, renderProjectForm}

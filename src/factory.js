@@ -11,18 +11,17 @@ const todoModule = (() => {
     }
     return {
         createTodo: todoFactory,
-        getProjectTodos: (projectId) => {return todoList.filter((ele)=> ele.projectId = projectId)},
+        getProjectTodos: (projectId) => {return todoList.filter((ele)=> ele.projectId == projectId)},
         getAllTodos: ()=> [...todoList],
-        deleteTodo: (index)=> todoList.splice(index, 1)
+        deleteTodo: (index)=> todoList.splice(index, 1),
     }
 })()
 
 const projectModule = (() => {
-    const project = {0: 'default', 1: 'first', 2: 'second'}
+    const project = {0: 'default'}
     function projectFactory(name){
-        const obj = {}
-        obj.name = name
-        project.push(obj)
+        const lastKey = Object.keys(project)[Object.keys(project).length - 1]
+        project[parseInt(lastKey)+1] = name
     }
     return {
         createProject: projectFactory,

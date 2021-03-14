@@ -1,5 +1,5 @@
 import {todoModule} from './factory'
 
-export default (title, description, priority, dueDate) => {
-    todoModule.createTodo(title, description, priority, dueDate)
+export default (title, description, priority, dueDate, projectId) => {
+    todoModule.createTodo(title, description, priority, dueDate, projectId)
 }
