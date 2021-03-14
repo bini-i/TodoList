@@ -16,4 +16,3 @@ const chainAppend = (nodes = []) => {
 };
 
 export { domNodeCreator, chainAppend };
-
