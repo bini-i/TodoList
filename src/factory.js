@@ -1,5 +1,6 @@
 const todoModule = (() => {
   const todoList = [];
+  window.todoList = todoList
   function todoFactory(title, description, dueDate, priority, projectId = 0) {
     const obj = {};
     obj.id = todoList.length;
@@ -12,7 +13,7 @@ const todoModule = (() => {
   }
   return {
     createTodo: todoFactory,
-    getProjectTodos: (pId) => todoList.filter((ele) => ele.projectId === parseInt(pId, 10)),
+    getProjectTodos: (pId) => todoList.filter((todo) => todo.projectId === parseInt(pId, 10)),
     getAllTodos: () => [...todoList],
     getTodo: (index) => todoList[index],
     updateTodo: (index, title, description, dueDate, priority, projectId = 0) => {
@@ -22,12 +23,16 @@ const todoModule = (() => {
       todoList[index].priority = priority;
       todoList[index].projectId = projectId;
     },
-    deleteTodo: (index) => todoList.splice(index, 1),
+    deleteTodo: (index) => {
+      let indx = todoList.findIndex((todo) => todo.id === parseInt(index, 10))
+      todoList.splice(indx, 1)
+    },
   };
 })();
 
 const projectModule = (() => {
   const project = { 0: 'default' };
+  window.project = project
   function projectFactory(name) {
     const lastKey = Object.keys(project)[Object.keys(project).length - 1];
     project[parseInt(lastKey, 10) + 1] = name;
