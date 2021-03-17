@@ -1,6 +1,8 @@
 const todoModule = (() => {
   const todoList = [];
+
   window.todoList = todoList
+  
   function todoFactory(title, description, dueDate, priority, projectId = 0) {
     const obj = {};
     obj.id = todoList.length;
@@ -32,7 +34,6 @@ const todoModule = (() => {
 
 const projectModule = (() => {
   const project = { 0: 'default' };
-  window.project = project
   function projectFactory(name) {
     const lastKey = Object.keys(project)[Object.keys(project).length - 1];
     project[parseInt(lastKey, 10) + 1] = name;
@@ -43,5 +44,8 @@ const projectModule = (() => {
     getAllProject: () => Object.assign(project),
   };
 })();
+
+window.todoModule = todoModule
+window.projectModule = projectModule
 
 export { todoModule, projectModule };

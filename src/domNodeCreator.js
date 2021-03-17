@@ -15,4 +15,7 @@ const chainAppend = (nodes = []) => {
   nodes[0].appendChild(nodes[1]);
 };
 
+window.domNodeCreator = domNodeCreator
+window.chainAppend = chainAppend
+
 export { domNodeCreator, chainAppend };

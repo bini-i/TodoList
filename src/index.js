@@ -1,6 +1,7 @@
-import {
-  renderProjectOptions, renderForm, renderProjectForm, renderTodoList,
-} from './home';
+import {renderForm} from './renderDomElements/renderForm';
+import {renderProjectForm} from './renderDomElements/renderProjectForm'
+import {renderTodoList} from './renderDomElements/renderTodoList'
+import {renderProjectOptions} from './renderDomElements/renderProjectOptions'
 import createTodo from './createTodo';
 import { projectModule } from './factory';
 
@@ -33,3 +34,4 @@ createProject.addEventListener('click', (event) => {
   renderProjectOptions(projectGroup);
   alert('New project created'); // eslint-disable-line no-alert
 });
+
