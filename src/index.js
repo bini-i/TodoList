@@ -14,15 +14,20 @@ const description = document.getElementById('Description');
 const dueDate = document.getElementById('Due date');
 const priority = document.getElementById('priority');
 
-const addTodo = document.getElementById('add-todo');
+const form = document.getElementById('todo-form');
 
-addTodo.addEventListener('click', (event) => {
-  const project = document.getElementById('project');
+form.addEventListener('submit', function (event) {
   event.preventDefault();
-  createTodo(title.value, description.value, dueDate.value,
-    priority.value, parseInt(project.value, 10));
-  renderTodoList();
-});
+  if (form.checkValidity() === false) {
+    event.stopPropagation();
+  }else {
+    const project = document.getElementById('project');
+    createTodo(title.value, description.value, dueDate.value,
+      priority.value, parseInt(project.value, 10));
+      renderTodoList();
+  }
+  form.classList.add('was-validated');
+}, false);
 
 const projectGroup = document.getElementById('project-group');
 const projectName = document.getElementById('project-name');
