@@ -27,10 +27,12 @@ const todoModule = (() => {
       todoList[index].dueDate = dueDate;
       todoList[index].priority = priority;
       todoList[index].projectId = projectId;
+      localStorage.setItem('todoList', JSON.stringify(todoList));
     },
     deleteTodo: (index) => {
       const indx = todoList.findIndex((todo) => todo.id === parseInt(index, 10));
       todoList.splice(indx, 1);
+      localStorage.setItem('todoList', JSON.stringify(todoList));
     },
     loadTodoList: () => {
       const storedTodoList = JSON.parse(localStorage.getItem('todoList'));
