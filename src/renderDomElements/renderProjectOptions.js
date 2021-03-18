@@ -1,8 +1,7 @@
-import { domNodeCreator, chainAppend } from './../domNodeCreator';
-import { projectModule, todoModule } from './../factory';
+import { domNodeCreator } from '../domNodeCreator';
+import { projectModule } from '../factory';
 
-
-export const renderProjectOptions = (selectGroupProject) => {
+export default (selectGroupProject) => {
   let selectProject = document.getElementById('project');
   if (selectProject) {
     selectGroupProject.removeChild(selectProject);

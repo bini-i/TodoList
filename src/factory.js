@@ -18,7 +18,7 @@ const todoModule = (() => {
     getAllTodos: () => [...todoList],
     getTodo: (id) => todoList.filter(todo => todo.id === parseInt(id, 10))[0],
     updateTodo: (id, title, description, dueDate, priority, projectId = 0) => {
-      let index = todoList.findIndex((todo) => todo.id === parseInt(id, 10))
+      const index = todoList.findIndex((todo) => todo.id === parseInt(id, 10));
       todoList[index].title = title;
       todoList[index].description = description;
       todoList[index].dueDate = dueDate;
@@ -26,8 +26,8 @@ const todoModule = (() => {
       todoList[index].projectId = projectId;
     },
     deleteTodo: (index) => {
-      let indx = todoList.findIndex((todo) => todo.id === parseInt(index, 10))
-      todoList.splice(indx, 1)
+      const indx = todoList.findIndex((todo) => todo.id === parseInt(index, 10));
+      todoList.splice(indx, 1);
     },
   };
 })();

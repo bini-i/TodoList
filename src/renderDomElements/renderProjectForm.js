@@ -1,6 +1,6 @@
-import { domNodeCreator, chainAppend } from './../domNodeCreator';
+import { domNodeCreator, chainAppend } from '../domNodeCreator';
 
-export const renderProjectForm = () => {
+export default () => {
   const content = document.getElementById('content');
   const form = domNodeCreator('form', { class: 'mb-3' });
   const group = domNodeCreator('div', { class: 'form-group col-md-7' });

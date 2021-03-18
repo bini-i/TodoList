@@ -1,8 +1,8 @@
-import { domNodeCreator, chainAppend } from './../domNodeCreator';
-import { projectModule, todoModule } from './../factory';
-import {renderModal} from './renderModal'
+import { domNodeCreator, chainAppend } from '../domNodeCreator';
+import { projectModule, todoModule } from '../factory';
+import renderModal from './renderModal';
 
-export const renderTodoList = () => {
+export default function renderTodoList() {
   const content = document.getElementById('content');
   const todoList = domNodeCreator('div', { class: 'todo-list' });
   if (document.querySelector('.todo-list')) {
@@ -37,13 +37,13 @@ export const renderTodoList = () => {
 
         const updateTodo = document.getElementById('update-todo');
         updateTodo.addEventListener('click', (event) => {
-          event.preventDefault(); 
+          event.preventDefault();
           todoModule.updateTodo(event.target.dataset.index, modalTitle.value,
             modalDescription.value, modalDueDate.value,
             modalPriority.value, parseInt(modalProject.value, 10));
           renderTodoList();
         });
-      }, );
+      });
 
       const remove = domNodeCreator('span');
       const removeIcon = domNodeCreator('i', { class: 'fa fa-times', 'data-index': ele.id });
@@ -61,4 +61,4 @@ export const renderTodoList = () => {
     chainAppend([content, todoList, h3]);
     chainAppend([content, todoList, ul]);
   });
-};
+}

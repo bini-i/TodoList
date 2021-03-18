@@ -1,10 +1,10 @@
-import { domNodeCreator, chainAppend } from './../domNodeCreator';
-import { projectModule, todoModule } from './../factory';
+import { domNodeCreator, chainAppend } from '../domNodeCreator';
+import { projectModule, todoModule } from '../factory';
 
-export const renderModal = (index) => {
+export default (index) => {
   const body = document.querySelector('body');
-  if(document.querySelector('.container')){
-    body.removeChild(document.querySelector('.container'))
+  if (document.querySelector('.container')) {
+    body.removeChild(document.querySelector('.container'));
   }
   const container = domNodeCreator('div', { class: 'container' });
 
@@ -18,7 +18,7 @@ export const renderModal = (index) => {
   chainAppend([body, container, modal, modalDialog, modalContent]);
   chainAppend([modalContent, modalHeader, modalTitle]);
   chainAppend([modalContent, modalBody]);
-  
+
   const form = domNodeCreator('form', { class: 'mb-3' });
   const todoAttr = ['title', 'description', 'dueDate'];
   todoAttr.forEach((ele) => {
@@ -29,7 +29,7 @@ export const renderModal = (index) => {
     chainAppend([form, group, input]);
   });
   chainAppend([modalBody, form]);
-  
+
   const labelPriority = domNodeCreator('label', { for: 'priority', class: 'col-sm-2 col-form-label' }, 'Priority');
   form.appendChild(labelPriority);
   const selectGroupPriority = domNodeCreator('div', { class: 'form-group col-md-4' });
@@ -58,7 +58,7 @@ export const renderModal = (index) => {
 
   const modalFooter = domNodeCreator('div', { class: 'modal-footer d-flex justify-content-between' });
   const closeButton = domNodeCreator('button', { type: 'button', class: 'btn btn-danger', 'data-dismiss': 'modal' }, 'Close');
-  
+
   chainAppend([modalContent, modalFooter, updateButton]);
   chainAppend([modalContent, modalFooter, closeButton]);
 };
