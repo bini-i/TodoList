@@ -16,6 +16,7 @@ This is a todo-list project where a user can create a todo and organize them int
 
 * [About the Project](#about-the-project)
 * [Built With](#built-with)
+* [Live Demo](#live-demo)
 * [Authors](#authors)
 * [Contributing](#contributing)
 * [Show your support](#show-your-support)
@@ -26,6 +27,10 @@ This is a todo-list project where a user can create a todo and organize them int
 
 * [JavaScript](https://en.wikipedia.org/wiki/JavaScript)
 * [HTML5](https://en.wikipedia.org/wiki/HTML5)
+
+## Live Demo
+
+[Live Demo Link](https://www.binyamhailemeskel.me/TodoList/)
 
 ## Authors
 
