@@ -1,0 +1,8 @@
+.body-padding {
+  padding: 5rem;
+}
+
+.list-group-item {
+  display: flex;
+  justify-content: space-between;
+}
