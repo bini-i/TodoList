@@ -13,7 +13,10 @@ const todoModule = (() => {
   }
 
   return {
-    createTodo: todoFactory,
+    createTodo: (title, description, priority, dueDate, projectId) => {
+      todoFactory(title, description, priority, dueDate, projectId);
+      localStorage.setItem('todoList', JSON.stringify(todoList));
+    },
     getProjectTodos: (pId) => todoList.filter((todo) => todo.projectId === parseInt(pId, 10)),
     getAllTodos: () => [...todoList],
     getTodo: (id) => todoList.filter(todo => todo.id === parseInt(id, 10))[0],
@@ -29,6 +32,12 @@ const todoModule = (() => {
       const indx = todoList.findIndex((todo) => todo.id === parseInt(index, 10));
       todoList.splice(indx, 1);
     },
+    loadTodoList: () => {
+      const storedTodoList = JSON.parse(localStorage.getItem('todoList'));
+      if (storedTodoList) {
+        todoList.push(...storedTodoList);
+      }
+    },
   };
 })();
 
@@ -37,11 +46,18 @@ const projectModule = (() => {
   function projectFactory(name) {
     const lastKey = Object.keys(project)[Object.keys(project).length - 1];
     project[parseInt(lastKey, 10) + 1] = name;
+    localStorage.setItem('project', JSON.stringify(project));
   }
   return {
     createProject: projectFactory,
     getProject: (projectId) => project[projectId],
     getAllProject: () => Object.assign(project),
+    loadProject: () => {
+      const storedProject = JSON.parse(localStorage.getItem('project'));
+      if (storedProject) {
+        project.push(...storedProject);
+      }
+    },
   };
 })();
 

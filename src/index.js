@@ -3,7 +3,10 @@ import renderProjectForm from './renderDomElements/renderProjectForm';
 import renderTodoList from './renderDomElements/renderTodoList';
 import renderProjectOptions from './renderDomElements/renderProjectOptions';
 import createTodo from './createTodo';
-import { projectModule } from './factory';
+import { projectModule, todoModule } from './factory';
+
+todoModule.loadTodoList();
+projectModule.loadProject();
 
 renderForm();
 renderProjectForm();
