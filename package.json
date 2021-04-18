@@ -4,26 +4,25 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-
-  }
-  ,
+    "test": "jest",
+    "build": "webpack --progress --mode=production",
+    "watch": "webpack --progress --watch",
+    "serve": "webpack-dev-server --open"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/bini-i/TodoList.git"
-  }
-  ,
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-
-  }
-  ,
+  "bugs": {},
   "homepage": "https://github.com/bini-i/TodoList#readme",
   "devDependencies": {
     "@babel/core": "^7.13.10",
     "@babel/preset-env": "^7.13.10",
     "babel-loader": "^8.2.2",
+    "jest": "^26.6.3",
     "webpack": "^5.25.0",
     "webpack-cli": "^4.5.0"
   }

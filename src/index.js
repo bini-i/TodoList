@@ -2,8 +2,8 @@ import renderForm from './renderDomElements/renderForm';
 import renderProjectForm from './renderDomElements/renderProjectForm';
 import renderTodoList from './renderDomElements/renderTodoList';
 import renderProjectOptions from './renderDomElements/renderProjectOptions';
-import { todoModule } from './todoModule';
-import { projectModule } from './projectModule';
+import { todoModule } from './todo-module';
+import { projectModule } from './project-module';
 
 todoModule.loadTodoList();
 projectModule.loadProject();
