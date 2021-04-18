@@ -1,5 +1,6 @@
 import { domNodeCreator, chainAppend } from '../domNodeCreator';
-import { projectModule, todoModule } from '../factory';
+import { todoModule } from '../todoModule';
+import { projectModule } from '../projectModule';
 import renderModal from './renderModal';
 
 export default function renderTodoList() {

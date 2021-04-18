@@ -2,8 +2,8 @@ import renderForm from './renderDomElements/renderForm';
 import renderProjectForm from './renderDomElements/renderProjectForm';
 import renderTodoList from './renderDomElements/renderTodoList';
 import renderProjectOptions from './renderDomElements/renderProjectOptions';
-import createTodo from './createTodo';
-import { projectModule, todoModule } from './factory';
+import { todoModule } from './todoModule';
+import { projectModule } from './projectModule';
 
 todoModule.loadTodoList();
 projectModule.loadProject();
@@ -25,7 +25,7 @@ form.addEventListener('submit', (event) => {
     event.stopPropagation();
   } else {
     const project = document.getElementById('project');
-    createTodo(title.value, description.value, dueDate.value,
+    todoModule.createTodo(title.value, description.value, dueDate.value,
       priority.value, parseInt(project.value, 10));
     renderTodoList();
   }
