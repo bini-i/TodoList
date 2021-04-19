@@ -1,4 +1,4 @@
-const todoModule = (() => {
+export default (() => {
   const todoList = [];
 
   function todoFactory(title, description, dueDate, priority, projectId = 0) {
@@ -10,12 +10,12 @@ const todoModule = (() => {
     obj.priority = priority;
     obj.projectId = projectId;
     todoList.push(obj);
-    return obj
+    return obj;
   }
 
   return {
     createTodo: (title, description, priority, dueDate, projectId) => {
-      let newTodo = todoFactory(title, description, priority, dueDate, projectId);
+      const newTodo = todoFactory(title, description, priority, dueDate, projectId);
       localStorage.setItem('todoList', JSON.stringify(todoList));
       return newTodo;
     },
@@ -44,7 +44,3 @@ const todoModule = (() => {
     },
   };
 })();
-
-
-
-export { todoModule };

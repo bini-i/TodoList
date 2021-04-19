@@ -1,6 +1,6 @@
 import { domNodeCreator, chainAppend } from '../domNodeCreator';
-import { projectModule } from '../project-module';
-import { todoModule } from '../todo-module';
+import projectModule from '../project-module';
+import todoModule from '../todo-module';
 
 export default (index) => {
   const body = document.querySelector('body');
