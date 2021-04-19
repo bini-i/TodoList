@@ -10,12 +10,14 @@ const todoModule = (() => {
     obj.priority = priority;
     obj.projectId = projectId;
     todoList.push(obj);
+    return obj
   }
 
   return {
     createTodo: (title, description, priority, dueDate, projectId) => {
-      todoFactory(title, description, priority, dueDate, projectId);
+      let newTodo = todoFactory(title, description, priority, dueDate, projectId);
       localStorage.setItem('todoList', JSON.stringify(todoList));
+      return newTodo;
     },
     getProjectTodos: (pId) => todoList.filter((todo) => todo.projectId === parseInt(pId, 10)),
     getAllTodos: () => [...todoList],
