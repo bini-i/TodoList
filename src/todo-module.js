@@ -30,17 +30,21 @@ export default (() => {
       todoList[index].priority = priority;
       todoList[index].projectId = projectId;
       localStorage.setItem('todoList', JSON.stringify(todoList));
+      return todoList[index];
     },
     deleteTodo: (index) => {
       const indx = todoList.findIndex((todo) => todo.id === parseInt(index, 10));
+      const tobeDeleted = todoList[indx];
       todoList.splice(indx, 1);
       localStorage.setItem('todoList', JSON.stringify(todoList));
+      return tobeDeleted;
     },
     loadTodoList: () => {
       const storedTodoList = JSON.parse(localStorage.getItem('todoList'));
       if (storedTodoList) {
         todoList.push(...storedTodoList);
       }
+      return storedTodoList;
     },
   };
 })();

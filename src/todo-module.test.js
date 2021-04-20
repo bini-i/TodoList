@@ -40,12 +40,73 @@ describe('todoModule', () => {
       },
       {
         id: 2,
-        title: 'todo3 title',
+        title: 'toString title',
         description: 'todo description',
         dueDate: '21/2/21',
         priority: 'high',
         projectId: 1,
       }].toString);
+    });
+  });
+  describe('#getTodo', () => {
+    test('it returns a given todo', () => {
+      expect(todoModule.getTodo(2)).toEqual({
+        id: 2,
+        title: 'todo3 title',
+        description: 'todo description',
+        dueDate: '21/2/21',
+        priority: 'high',
+        projectId: 1,
+      });
+    });
+  });
+
+  describe('#updateTodo', () => {
+    test('it updates a given todo', () => {
+      expect(todoModule.updateTodo(2, 'new todo', 'new desc', '1/1/21', 'low', 1)).toEqual({
+        id: 2,
+        title: 'new todo',
+        description: 'new desc',
+        dueDate: '1/1/21',
+        priority: 'low',
+        projectId: 1,
+      });
+    });
+  });
+  describe('#deleteTodo', () => {
+    test('it deletes a given todo', () => {
+      expect(todoModule.deleteTodo(2)).toEqual({
+        id: 2,
+        title: 'new todo',
+        description: 'new desc',
+        dueDate: '1/1/21',
+        priority: 'low',
+        projectId: 1,
+      });
+    });
+  });
+  describe('#loadTodoList', () => {
+    test('it loads todolists from local storage', () => {
+      const KEY = 'todoList';
+      const VALUE = JSON.stringify([{
+        id: 0,
+        title: 'todo1 title',
+        description: 'todo description',
+        dueDate: '21/2/21',
+        priority: 'high',
+        projectId: 0,
+      }]);
+
+      localStorage.setItem(KEY, VALUE);
+      expect(localStorage.setItem).toHaveBeenLastCalledWith(KEY, VALUE);
+      expect(todoModule.loadTodoList()).toEqual([{
+        id: 0,
+        title: 'todo1 title',
+        description: 'todo description',
+        dueDate: '21/2/21',
+        priority: 'high',
+        projectId: 0,
+      }]);
     });
   });
 });

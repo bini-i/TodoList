@@ -1,5 +1,5 @@
 export default (() => {
-  const project = { 0: 'default' };
+  let project = { 0: 'default' };
   function projectFactory(name) {
     const lastKey = Object.keys(project)[Object.keys(project).length - 1];
     project[parseInt(lastKey, 10) + 1] = name;
@@ -13,8 +13,9 @@ export default (() => {
     loadProject: () => {
       const storedProject = JSON.parse(localStorage.getItem('project'));
       if (storedProject) {
-        project.push(...storedProject);
+        project = { ...project, ...storedProject };
       }
+      return storedProject;
     },
   };
 })();
