@@ -17,6 +17,7 @@ This is a todo-list project where a user can create a todo and organize them int
 * [About the Project](#about-the-project)
 * [Built With](#built-with)
 * [Live Demo](#live-demo)
+* [How to run tests](#tests)
 * [Authors](#authors)
 * [Contributing](#contributing)
 * [Show your support](#show-your-support)
@@ -32,6 +33,9 @@ This is a todo-list project where a user can create a todo and organize them int
 
 [Live Demo Link](https://www.binyamhailemeskel.me/TodoList/)
 
+## How to run tests
+ - ``` npm install``` to install all dependencies needed for testing.
+ - Execute ```npm test``` to run all the tests.
 ## Authors
 
 👤 **Sayyod Saidov**
