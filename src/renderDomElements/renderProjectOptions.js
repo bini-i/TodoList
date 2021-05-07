@@ -1,5 +1,5 @@
 import { domNodeCreator } from '../domNodeCreator';
-import projectModule from'./projectModule'
+import projectModule from'../projectModule'
 // import todoModule from './todoModule'
 // import { projectModule } from '../factory';
 
