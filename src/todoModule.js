@@ -1,4 +1,4 @@
-const todoModule = (() => {
+export default(() => {
   const todoList = [];
 
   function todoFactory(title, description, dueDate, priority, projectId = 0) {
@@ -13,7 +13,11 @@ const todoModule = (() => {
   }
 
   return {
-    createTodo: todoFactory,
+    createTodo: (title, description, priority, dueDate, projectId) => {
+      const newTodo = todoFactory(title, description, priority, dueDate, projectId);
+      localStorage.setItem('todoList', JSON.stringify(todoList))
+      return newTodo
+    },
     getProjectTodos: (pId) => todoList.filter((todo) => todo.projectId === parseInt(pId, 10)),
     getAllTodos: () => [...todoList],
     getTodo: (id) => todoList.filter(todo => todo.id === parseInt(id, 10))[0],
@@ -24,10 +28,22 @@ const todoModule = (() => {
       todoList[index].dueDate = dueDate;
       todoList[index].priority = priority;
       todoList[index].projectId = projectId;
+      localStorage.setItem('todoList', JSON.stringify(todoList))
+      return todoList[index]
     },
     deleteTodo: (index) => {
-      const indx = todoList.findIndex((todo) => todo.id === parseInt(index, 10));
-      todoList.splice(indx, 1);
+      const number = todoList.findIndex((todo) => todo.id === parseInt(index, 10));
+      const toBeDeleted = todoList[number]
+      todoList.splice(number, 1);
+      localStorage.setItem('todoList', JSON.stringify(todoList))
+      return toBeDeleted
     },
+    loadTodoList: ()=> {
+      const savedTodoList = JSON.parse(localStorage.getItem('todoList'))
+      if (savedTodoList) {
+        todoList.push(...savedTodoList)
+      }
+      return savedTodoList
+    }
   };
 })();
