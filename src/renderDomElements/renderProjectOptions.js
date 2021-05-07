@@ -1,5 +1,7 @@
 import { domNodeCreator } from '../domNodeCreator';
-import { projectModule } from '../factory';
+import projectModule from'./projectModule'
+// import todoModule from './todoModule'
+// import { projectModule } from '../factory';
 
 export default (selectGroupProject) => {
   let selectProject = document.getElementById('project');
