@@ -1,4 +1,4 @@
-export default(() => {
+export default (() => {
   const todoList = [];
 
   function todoFactory(title, description, dueDate, priority, projectId = 0) {
@@ -10,13 +10,14 @@ export default(() => {
     obj.priority = priority;
     obj.projectId = projectId;
     todoList.push(obj);
+    return obj;
   }
 
   return {
-    createTodo: (title, description, priority, dueDate, projectId) => {
-      const newTodo = todoFactory(title, description, priority, dueDate, projectId);
-      localStorage.setItem('todoList', JSON.stringify(todoList))
-      return newTodo
+    createTodo: (title, description, dueDate, priority, projectId) => {
+      const newTodo = todoFactory(title, description, dueDate, priority, projectId);
+      localStorage.setItem('todoList', JSON.stringify(todoList));
+      return newTodo;
     },
     getProjectTodos: (pId) => todoList.filter((todo) => todo.projectId === parseInt(pId, 10)),
     getAllTodos: () => [...todoList],
@@ -28,22 +29,22 @@ export default(() => {
       todoList[index].dueDate = dueDate;
       todoList[index].priority = priority;
       todoList[index].projectId = projectId;
-      localStorage.setItem('todoList', JSON.stringify(todoList))
-      return todoList[index]
+      localStorage.setItem('todoList', JSON.stringify(todoList));
+      return todoList[index];
     },
     deleteTodo: (index) => {
-      const number = todoList.findIndex((todo) => todo.id === parseInt(index, 10));
-      const toBeDeleted = todoList[number]
-      todoList.splice(number, 1);
-      localStorage.setItem('todoList', JSON.stringify(todoList))
-      return toBeDeleted
+      const indx = todoList.findIndex((todo) => todo.id === parseInt(index, 10));
+      const tobeDeleted = todoList[indx];
+      todoList.splice(indx, 1);
+      localStorage.setItem('todoList', JSON.stringify(todoList));
+      return tobeDeleted;
     },
-    loadTodoList: ()=> {
-      const savedTodoList = JSON.parse(localStorage.getItem('todoList'))
-      if (savedTodoList) {
-        todoList.push(...savedTodoList)
+    loadTodoList: () => {
+      const storedTodoList = JSON.parse(localStorage.getItem('todoList'));
+      if (storedTodoList) {
+        todoList.push(...storedTodoList);
       }
-      return savedTodoList
-    }
+      return storedTodoList;
+    },
   };
 })();
