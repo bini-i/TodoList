@@ -1,6 +1,6 @@
 import { domNodeCreator, chainAppend } from '../domNodeCreator';
-import projectModule from'../projectModule'
-import todoModule from '../todoModule'
+import projectModule from '../projectModule';
+import todoModule from '../todoModule';
 // import { projectModule, todoModule } from '../factory';
 import renderModal from './renderModal';
 

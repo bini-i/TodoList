@@ -2,13 +2,13 @@ import renderForm from './renderDomElements/renderForm';
 import renderProjectForm from './renderDomElements/renderProjectForm';
 import renderTodoList from './renderDomElements/renderTodoList';
 import renderProjectOptions from './renderDomElements/renderProjectOptions';
-import projectModule from'./projectModule'
-import todoModule from './todoModule'
+import projectModule from './projectModule';
+import todoModule from './todoModule';
 // import createTodo from './createTodo';
 // import { projectModule } from './factory';
 
-todoModule.loadTodoList()
-projectModule.loadProject()
+todoModule.loadTodoList();
+projectModule.loadProject();
 
 renderForm();
 renderProjectForm();
