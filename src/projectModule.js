@@ -13,7 +13,7 @@ export default (() => {
     loadProject: ()=> {
       const savedProject = JSON.parse(localStorage.getItem('project'))
       if (savedProject) {
-        project = {...project, ...storedProject}
+        project = {...project, ...savedProject}
       }
       return savedProject
     }
