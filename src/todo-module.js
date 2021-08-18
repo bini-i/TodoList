@@ -1,4 +1,4 @@
-const todoModule = (() => {
+export default (() => {
   const todoList = [];
 
   function todoFactory(title, description, dueDate, priority, projectId = 0) {
@@ -10,12 +10,14 @@ const todoModule = (() => {
     obj.priority = priority;
     obj.projectId = projectId;
     todoList.push(obj);
+    return obj;
   }
 
   return {
     createTodo: (title, description, priority, dueDate, projectId) => {
-      todoFactory(title, description, priority, dueDate, projectId);
+      const newTodo = todoFactory(title, description, priority, dueDate, projectId);
       localStorage.setItem('todoList', JSON.stringify(todoList));
+      return newTodo;
     },
     getProjectTodos: (pId) => todoList.filter((todo) => todo.projectId === parseInt(pId, 10)),
     getAllTodos: () => [...todoList],
@@ -28,39 +30,21 @@ const todoModule = (() => {
       todoList[index].priority = priority;
       todoList[index].projectId = projectId;
       localStorage.setItem('todoList', JSON.stringify(todoList));
+      return todoList[index];
     },
     deleteTodo: (index) => {
       const indx = todoList.findIndex((todo) => todo.id === parseInt(index, 10));
+      const tobeDeleted = todoList[indx];
       todoList.splice(indx, 1);
       localStorage.setItem('todoList', JSON.stringify(todoList));
+      return tobeDeleted;
     },
     loadTodoList: () => {
       const storedTodoList = JSON.parse(localStorage.getItem('todoList'));
       if (storedTodoList) {
         todoList.push(...storedTodoList);
       }
+      return storedTodoList;
     },
   };
 })();
-
-const projectModule = (() => {
-  const project = { 0: 'default' };
-  function projectFactory(name) {
-    const lastKey = Object.keys(project)[Object.keys(project).length - 1];
-    project[parseInt(lastKey, 10) + 1] = name;
-    localStorage.setItem('project', JSON.stringify(project));
-  }
-  return {
-    createProject: projectFactory,
-    getProject: (projectId) => project[projectId],
-    getAllProject: () => Object.assign(project),
-    loadProject: () => {
-      const storedProject = JSON.parse(localStorage.getItem('project'));
-      if (storedProject) {
-        project.push(...storedProject);
-      }
-    },
-  };
-})();
-
-export { todoModule, projectModule };
